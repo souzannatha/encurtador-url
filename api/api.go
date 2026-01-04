@@ -28,7 +28,7 @@ type PostBody struct {
 
 type Response struct {
 	Error string `json:"error,omitempty"`
-	Data  any    `json:"error,omitempty"`
+	Data  any    `json:"data,omitempty"`
 }
 
 func sendJSON(w http.ResponseWriter, resp Response, status int) {
@@ -64,7 +64,13 @@ func handlePost(db map[string]string) http.HandlerFunc {
 
 func handleGet(db map[string]string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-
+		code := chi.URLParam(r, "code")
+		data, ok := db[code]
+		if !ok {
+			http.Error(w, "url não encontrado", http.StatusNotFound)
+			return
+		}
+		http.Redirect(w, r, data, http.StatusPermanentRedirect)
 	}
 }
 
