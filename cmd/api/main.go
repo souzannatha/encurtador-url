@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encurtador-url/api"
+	"encurtador-url/internal/api"
 	"log/slog"
 	"net/http"
 	"time"
