@@ -25,9 +25,9 @@ func run() error {
 		DB:       0,
 	})
 
-	store := store.NewStore(rdb)
+	st := store.NewStore(rdb)
 
-	handler := api.NewHandler(store)
+	handler := api.NewHandler(st)
 	s := http.Server{
 		ReadTimeout:  10 * time.Second,
 		IdleTimeout:  time.Minute,
